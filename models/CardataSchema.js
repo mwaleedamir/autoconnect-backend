@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const carInfo = mongoose.Schema({
     userId:{ 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Dealer'
+        ref: 'owner'
     },
     carName : {
         type: String,
