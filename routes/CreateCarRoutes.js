@@ -1,6 +1,6 @@
 import { createCar, getCar,updateCar,deleteCar } from "../controllers/createCar.js";
 import express from "express";
-import upload  from '../middleware/MiddlewareImagesUpload.js'   
+import upload  from '../middleware/middlewareImagesUpload.js'   
 
  
 const routes = express.Router() 
