@@ -1,4 +1,4 @@
-import { uploadProfile } from '../middleware/MiddlewareImagesUpload.js'   
+import { uploadProfile } from '../middleware/middlewareImagesUpload.js'   
 import { createProfile ,getProfile,deleteProfile,updateProfile } from "../controllers/createProfile.js";
 import express from "express";
 
