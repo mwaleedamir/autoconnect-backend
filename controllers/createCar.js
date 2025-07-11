@@ -1,7 +1,7 @@
 import cardata from '../models/CardataSchema.js'
 export const createCar = async(req,res) =>{
     try {
-        const {userId,carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,description} = req.body
+        const {userId,carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,description,time} = req.body
          
         const images = req.files ? req.files.map(file => file.filename) : [];
         if(!images.length){
@@ -9,11 +9,11 @@ export const createCar = async(req,res) =>{
         }
         
         if(!carName || !carMake || !engineCapacity || !carPrice || !mileage || !color || !model || !importedFrom || !registeredIn || !varients || !userId){
-            return res.status(404).json({message:"fields are empty"})
+            return res.status(404).json({message:"fields are empty"})``
         } 
-        console.log({carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,images,description,userId})
+        console.log({carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,images,description,userId,time})
 
-        const newCar = await cardata.create({userId,carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,description,images})
+        const newCar = await cardata.create({userId,carName,carMake,engineCapacity,carPrice,mileage,color,model,importedFrom,registeredIn,varients,description,images,time})
         await newCar.save()
         res.status(201).json({message : "added sucessfully ",newCar})
     } catch (error) {

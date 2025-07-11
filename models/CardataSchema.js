@@ -51,6 +51,10 @@ const carInfo = mongoose.Schema({
     }],
     description : {
         type: String,
+    },
+    time : {
+        type: Date,
+        default: Date.now
     }
 })
  
