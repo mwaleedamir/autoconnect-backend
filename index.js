@@ -7,6 +7,7 @@ import userRouter from './routes/AuthRoutes.js';
 import createCarRoutes from './routes/CreateCarRoutes.js';
 // import StripeRoute from './Stripe/StripeRoute.js'
 import profileRoutes from './routes/Profile.js ';
+import chatRoutes from './routes/chatRoutes.js';
 
 dotenv.config() 
 const app = express()
@@ -31,18 +32,13 @@ app.use(cors({
   credentials: true,
 }));
 
-// app.use(cors(
-//   {
-//   credentials : false,  
-//   origin: process.env.ORIGIN_URI 
-// } 
-// ));  
 app.use(express.json())
 app.use(cookieparser())
 app.use(express.static('uploads'))
 app.use('/auth',userRouter)
 app.use('/api',createCarRoutes)
 app.use('/api',profileRoutes) 
+app.use('/api', chatRoutes);
 // app.use('/api',StripeRoute)
   
 
