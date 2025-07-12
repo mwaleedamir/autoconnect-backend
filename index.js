@@ -12,12 +12,31 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT  
 
-app.use(cors(
-  {
-  credentials : false,  
-  origin: process.env.ORIGIN_URI 
-} 
-));  
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://autoconnect-uk4w.onrender.com'
+];
+
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
+// app.use(cors(
+//   {
+//   credentials : false,  
+//   origin: process.env.ORIGIN_URI 
+// } 
+// ));  
 app.use(express.json())
 app.use(cookieparser())
 app.use(express.static('uploads'))
