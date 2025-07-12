@@ -1,6 +1,7 @@
-const openai = require('../config/openai');
+// controllers/chatController.js
+import openai from '../config/openai.js';
 
-const chatWithAI = async (req, res) => {
+export const chatWithAI = async (req, res) => {
   const { message } = req.body;
 
   try {
@@ -16,5 +17,3 @@ const chatWithAI = async (req, res) => {
     res.status(500).json({ error: 'Failed to get response from AI' });
   }
 };
-
-module.exports = { chatWithAI };
