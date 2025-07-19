@@ -32,6 +32,20 @@ export const getCar = async(req,res) => {
     }
 }
 
+export const getCarById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const car = await cardata.findById(id); 
+    if (!car) {
+      return res.status(404).json({ message: 'Car not found' });
+    }
+    return res.status(200).json(car);
+  } catch (error) {
+    console.error("Error fetching car by ID:", error);
+    return res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 export const updateCar = async(req, res) => {
     try {
         const car = await cardata.findByIdAndUpdate(req.params.id, req.body, {new: true})
