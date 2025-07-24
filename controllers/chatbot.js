@@ -10,9 +10,9 @@ export const chatWithAI = async (req, res) => {
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o', // ✅ fixed model name
       messages: [{ role: 'user', content: message }],
-      max_tokens: 150, // Add token limit to prevent excessive usage
+      max_tokens: 150,
       temperature: 0.7
     });
 
@@ -20,45 +20,47 @@ export const chatWithAI = async (req, res) => {
     res.json({ response: reply });
   } catch (error) {
     console.error('OpenAI Error:', error.message);
-    
-    // Handle specific error types
+
     if (error.status === 401) {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: 'OpenAI API authentication failed. Please check your API key permissions.',
-        details: 'Your API key may be missing the required scopes or you may not have the correct role in your organization.'
+        details: 'Your API key may be missing the required scopes or be misconfigured.'
       });
     } else if (error.status === 429) {
-      return res.status(429).json({ 
-        error: 'Rate limit exceeded. Please try again later.' 
+      return res.status(429).json({
+        error: 'Rate limit exceeded. Please try again later.'
       });
     } else if (error.status === 403) {
-      return res.status(403).json({ 
-        error: 'Access denied. Check your API key permissions and organization role.' 
+      return res.status(403).json({
+        error: 'Access denied. Check your API key permissions and organization role.'
       });
     } else {
-      return res.status(500).json({ 
+      return res.status(500).json({
         error: 'Failed to get response from AI',
-        message: error.message 
+        message: error.message
       });
     }
   }
 };
 
-// Test function to verify API key
+// ✅ Test function to verify the API key and list available models
 export const testAPIKey = async (req, res) => {
   try {
     const models = await openai.models.list();
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       message: 'API key is working correctly',
-      availableModels: models.data.slice(0, 5).map(model => model.id)
+      availableModels: models.data
+        .map(model => model.id)
+        .filter(id => id.startsWith('gpt-')) // show only chat models
+        .slice(0, 5)
     });
   } catch (error) {
     console.error('API Key Test Error:', error.message);
-    res.status(401).json({ 
-      success: false, 
-      error: 'API key test failed', 
-      message: error.message 
+    res.status(401).json({
+      success: false,
+      error: 'API key test failed',
+      message: error.message
     });
   }
 };
