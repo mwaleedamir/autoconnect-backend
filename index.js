@@ -15,7 +15,8 @@ const port = process.env.PORT
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://autoconnect-uk4w.onrender.com'
+  'https://autoconnect-uk4w.onrender.com',
+  'http://localhost:8081'
 ];
 
 
