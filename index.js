@@ -8,6 +8,8 @@ import createCarRoutes from './routes/CreateCarRoutes.js';
 // import StripeRoute from './Stripe/StripeRoute.js'
 import profileRoutes from './routes/Profile.js ';
 import chatRoutes from './routes/chatRoutes.js';
+import filterRoutes from  './routes/filterRoutes.js'
+import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config() 
 const app = express()
@@ -16,7 +18,8 @@ const port = process.env.PORT
 const allowedOrigins = [
   'http://localhost:5173',
   'https://autoconnect-uk4w.onrender.com',
-  'http://localhost:8081'
+  'http://localhost:8081',
+   
 ];
 
 
@@ -39,7 +42,9 @@ app.use(express.static('uploads'))
 app.use('/auth',userRouter)
 app.use('/api',createCarRoutes)
 app.use('/api',profileRoutes) 
-app.use('/api', chatRoutes);
+app.use('/api',chatRoutes);
+app.use('/api',filterRoutes)
+app.use('/api', uploadRoutes); 
 // app.use('/api',StripeRoute)
   
 
